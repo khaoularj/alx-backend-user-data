@@ -4,17 +4,13 @@ that returns the log message obfuscated"""
 import re
 
 
+patterns = {
+    'extract': lambda x, y: r'(?P<field>{})=[^{}]*'.format('|'.join(x), y),
+    'replace': lambda x: r'\g<field>={}'.format(x),
+}
+
+
 def filter_datum(fields, redaction, message, separator):
     """functions that returns the log message obfuscated"""
-    pattern = r'({}|^)({}=[^{}]+{})'.format(
-        re.escape(separator), '|'.join(fields), separator, separator
-    )
-
-    return re.sub(
-        pattern,
-        lambda match: '{}{}'.format(
-            match.group(1),
-            '{}={}'.format(match.group(2).split(separator)[0], redaction)
-        ),
-        message
-    )
+    extract, replace = (patterns["extract"], patterns["replace"])
+    return re.sub(extract(fields, separator), replace(redaction), message)
