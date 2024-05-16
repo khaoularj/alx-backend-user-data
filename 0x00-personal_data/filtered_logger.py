@@ -14,3 +14,7 @@ def filter_datum(fields, redaction, message, separator):
     """functions that returns the log message obfuscated"""
     extract, replace = (patterns["extract"], patterns["replace"])
     return re.sub(extract(fields, separator), replace(redaction), message)
+
+
+if __name__ == "__main__":
+    main()
