@@ -4,6 +4,7 @@ that returns the log message obfuscated"""
 import re
 import logging
 import os
+import csv
 from typing import List
 import mysql.connector
 
