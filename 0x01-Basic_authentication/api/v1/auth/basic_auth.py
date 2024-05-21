@@ -3,6 +3,8 @@
 from api.v1.auth.auth import Auth
 import base64
 from models.user import User
+import models
+from flask import request
 from typing import TypeVar, List
 
 
