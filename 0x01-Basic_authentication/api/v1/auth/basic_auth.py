@@ -70,9 +70,9 @@ class BasicAuth(Auth):
         """method that retrieves the user instance"""
         try:
             header = self.authorization_header(request)
-            base64_header = self.extract_base64_authorization_header(header)
-            decode_header = self.decode_base64_authorization_header(base64_header)
-            credentials = self.extract_user_credentials(decode_header)
-            return self.user_object_from_credentials(credentials[0], credentials[1])
+            base64_h = self.extract_base64_authorization_header(header)
+            decode_header = self.decode_base64_authorization_header(base64_h)
+            cred = self.extract_user_credentials(decode_header)
+            return self.user_object_from_credentials(cred[0], cred[1])
         except Exception:
             return None
