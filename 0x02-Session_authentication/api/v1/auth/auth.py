@@ -19,7 +19,7 @@ class Auth():
                 if path .startswith(p[:1]):
                     return False
         if path in excluded_paths:
-            return FRalse
+            return False
         return True
 
     def authorization_header(self, request=None) -> str:
