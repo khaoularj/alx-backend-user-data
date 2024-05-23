@@ -2,6 +2,7 @@
 """creating the class Auth to manage the API authentication"""
 from flask import request
 from typing import List, TypeVar
+from os import getenv
 
 
 class Auth():
@@ -34,3 +35,12 @@ class Auth():
     def current_user(self, request=None) -> TypeVar('User'):
         """public method that returns the current user"""
         return None
+
+    def session_cookie(self, request=None):
+        """method that returns a cookie value from a request"""
+        if request is None:
+            return None
+        session_name = getenv('SESSION_NAME')
+        if session_name is None:
+            return None
+        return request.cookies.get(session_name)
