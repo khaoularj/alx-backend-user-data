@@ -38,3 +38,14 @@ def login() -> str:
         return response
 
     return jsonify({"error": "Method Not Allowed"}), 405
+
+
+@app_views.route(
+        '/auth_session/logout/',
+        methods=['DELETE'],
+        strict_slashes=False)
+def logout() -> str:
+    """Logout"""
+    if not auth.destroy_session(request):
+        abort(404)
+    return jsonify({}), 200

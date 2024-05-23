@@ -3,6 +3,7 @@
 from api.v1.auth.auth import Auth
 import uuid
 from models.user import User
+from os import getenv
 
 
 class SessionAuth(Auth):
@@ -34,3 +35,22 @@ class SessionAuth(Auth):
         if not user_id:
             return None
         return User.get(user_id)
+
+    def destroy_session(self, request=None) -> bool:
+        """method  that deletes the user session / logout"""
+        if request is None:
+            return False
+        session_id = self.session_cookie(request)
+        if session_id is None:
+            return False
+        user_id = self.user_id_for_session_id(session_id)
+        if user_id is None:
+            return False
+        del self.user_id_by_session_id[session_id]
+        return True
+
+    def session_cookie(self, request=None) -> str:
+        """Get the Session ID cookie from a request"""
+        if request is None:
+            return None
+        return request.cookies.get(getenv('SESSION_NAME'))
