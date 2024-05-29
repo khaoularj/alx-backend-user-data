@@ -3,6 +3,7 @@
 from flask import Flask, jsonify, request
 from auth import Auth
 
+AUTH = Auth()
 app = Flask(__name__)
 
 
@@ -13,9 +14,9 @@ def Hey():
 
 
 @app.route('/users', methods=['POST'])
-def users():
+def users() -> str:
     """function that  implements the POST /users route"""
-    mail = request.form.get('email')
+    email = request.form.get('email')
     password = request.form.get('password')
     try:
         AUTH.register_user(email, password)
