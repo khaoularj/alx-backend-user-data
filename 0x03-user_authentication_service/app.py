@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """basic Flask app"""
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from auth import Auth
 
 app = Flask(__name__)
 
@@ -9,6 +10,18 @@ app = Flask(__name__)
 def Hey():
     """welcoming function"""
     return jsonify({"message": "Bienvenue"})
+
+
+@app.route('/users', methods=['POST'])
+def users():
+    """function that  implements the POST /users route"""
+    mail = request.form.get('email')
+    password = request.form.get('password')
+    try:
+        AUTH.register_user(email, password)
+        return jsonify({"email": f"{email}", "message": "user created"}), 200
+    except Exception:
+        return jsonify({"messege": "email already registered"}), 400
 
 
 if __name__ == "__main__":
