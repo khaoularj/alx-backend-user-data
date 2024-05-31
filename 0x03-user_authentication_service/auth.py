@@ -18,7 +18,7 @@ def _generate_uuid() -> str:
 
 
 class Auth:
-    """class that interact with the authentication database"""
+    """the class Auth that interact with the authentication database"""
     def __init__(self):
         self._db = DB()
 
