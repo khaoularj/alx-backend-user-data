@@ -20,6 +20,7 @@ def _generate_uuid() -> str:
 class Auth:
     """the class Auth that interact with the authentication database"""
     def __init__(self):
+        """init method"""
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
