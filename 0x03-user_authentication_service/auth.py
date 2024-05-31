@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Module for user authentication"""
 import bcrypt
 from bcrypt import hashpw, gensalt, checkpw
 from db import DB
